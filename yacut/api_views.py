@@ -7,8 +7,7 @@ from .utils import create_short_link, get_original_url
 @app.route('/api/id/', methods=['POST'])
 def create_link():
     """View-функция создания новой короткой ссылки."""
-    data = request.get_json()
-    return create_short_link(data)
+    return create_short_link(request.get_json())
 
 
 @app.route('/api/id/<string:short_id>/', methods=['GET'])
