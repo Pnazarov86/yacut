@@ -1,23 +1,17 @@
-from flask import jsonify, request
+from flask import request
 
-from . import app, db
-from .models import URLMap
-from .validators import valdation_id, valdation_link
+from . import app
+from .utils import create_short_link, get_original_url
 
 
 @app.route('/api/id/', methods=['POST'])
-def create_url():
-    """Cоздание новой короткой ссылки."""
-    data = valdation_link(request)
-    url_map = URLMap()
-    url_map.from_dict(data)
-    db.session.add(url_map)
-    db.session.commit()
-    return jsonify(url_map.to_dict()), 201
+def create_link():
+    """View-функция создания новой короткой ссылки."""
+    data = request.get_json()
+    return create_short_link(data)
 
 
 @app.route('/api/id/<string:short_id>/', methods=['GET'])
-def get_url(short_id):
-    """Получение оригинальной ссылки по короткой ссылке."""
-    url_map = valdation_id(short_id)
-    return jsonify(url=url_map.original), 200
+def get_link(short_id):
+    """View-функция получение оригинальной ссылки по короткой ссылке."""
+    return get_original_url(short_id)
