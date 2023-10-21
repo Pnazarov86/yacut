@@ -3,14 +3,14 @@ from datetime import datetime
 from flask import url_for
 
 from . import db
-from .constants import ORIGINAL_LINK_LENGJT, CUSTOM_lINK_LENGJT
+from .constants import CUSTOM_LINK_LENGJT, ORIGINAL_LINK_LENGJT
 
 
 class URLMap(db.Model):
     """Модель конвертации ссылок."""
     id = db.Column(db.Integer, primary_key=True)
     original = db.Column(db.String(ORIGINAL_LINK_LENGJT), nullable=False)
-    short = db.Column(db.String(CUSTOM_lINK_LENGJT), unique=True)
+    short = db.Column(db.String(CUSTOM_LINK_LENGJT), unique=True)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def to_dict(self):

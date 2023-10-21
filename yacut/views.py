@@ -1,14 +1,21 @@
-from flask import redirect, request
+from flask import redirect, render_template
 
 from . import app
+from .forms import YacutForm
 from .models import URLMap
-from .utils import index_page
+from .validators import valdation_form
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index_view():
-    """View-функция главной страницы."""
-    return index_page(request)
+    """Главная страница."""
+    form = YacutForm()
+    if form.validate_on_submit():
+        if valdation_form(form):
+            return render_template(
+                'index.html', form=form, short=form.custom_id.data
+            )
+    return render_template('index.html', form=form)
 
 
 @app.route('/<string:custom_id>')

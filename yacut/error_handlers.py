@@ -3,6 +3,11 @@ from flask import jsonify, render_template
 from . import app, db
 
 
+class YacutDefinitionException(Exception):
+    """Ошибка в работе функции."""
+    pass
+
+
 class InvalidAPIUsage(Exception):
     """Кастомный класс исключений."""
     status_code = 400

@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField, URLField
 from wtforms.validators import DataRequired, Length, Optional
 
-from .constants import ORIGINAL_LINK_LENGJT, CUSTOM_lINK_LENGJT
+from .constants import CUSTOM_LINK_LENGJT, ORIGINAL_LINK_LENGJT
 
 
 class YacutForm(FlaskForm):
@@ -16,6 +16,6 @@ class YacutForm(FlaskForm):
     )
     custom_id = URLField(
         'Ваш вариант короткой ссылки',
-        validators=[Length(max=CUSTOM_lINK_LENGJT), Optional()]
+        validators=[Length(max=CUSTOM_LINK_LENGJT), Optional()]
     )
     submit = SubmitField('Добавить')
