@@ -2,7 +2,7 @@ import random
 
 from . import db
 from .constants import ALLOWED_AUTO_CHARS, AUTO_LINK_LENGJT
-from .error_handlers import YacutDefinitionException
+from .error_handlers import CreateLinkException
 from .models import URLMap
 
 
@@ -25,4 +25,4 @@ def create_short_link(data):
         db.session.commit()
         return url_map.to_dict()
     except Exception as error:
-        raise YacutDefinitionException(f'Ошибка в работе функции {error}')
+        raise CreateLinkException(f'Ошибка создания ссылки {error}')

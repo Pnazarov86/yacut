@@ -3,8 +3,8 @@ from flask import jsonify, render_template
 from . import app, db
 
 
-class YacutDefinitionException(Exception):
-    """Ошибка в работе функции."""
+class CreateLinkException(Exception):
+    """Ошибка создания ссылки."""
     pass
 
 
