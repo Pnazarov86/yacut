@@ -4,13 +4,13 @@ from . import app
 from .error_handlers import InvalidAPIUsage
 from .models import URLMap
 from .utils import create_short_link
-from .validators import valdation_api_field
+from .validators import validation_data
 
 
 @app.route('/api/id/', methods=['POST'])
 def create_link():
     """View-функция создания новой короткой ссылки."""
-    data = valdation_api_field(request.get_json())
+    data = validation_data(request.get_json(), api=True)
     return jsonify(create_short_link(data)), 201
 
 

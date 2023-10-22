@@ -1,9 +1,10 @@
 from flask import redirect, render_template
+from .utils import create_short_link
 
 from . import app
 from .forms import YacutForm
 from .models import URLMap
-from .validators import valdation_form
+from .validators import validation_data
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -11,10 +12,12 @@ def index_view():
     """Главная страница."""
     form = YacutForm()
     if form.validate_on_submit():
-        if valdation_form(form):
-            return render_template(
-                'index.html', form=form, short=form.custom_id.data
+        short = validation_data(form.data)
+        if short:
+            create_short_link(
+                {'url': form.original_link.data, 'custom_id': short}
             )
+            return render_template('index.html', form=form, short=short)
     return render_template('index.html', form=form)
 
 
