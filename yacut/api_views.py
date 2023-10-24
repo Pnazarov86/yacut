@@ -1,7 +1,7 @@
 from flask import jsonify, request
 
 from . import app
-from .error_handlers import InvalidAPIUsage
+from .error_handlers import CreateLinkException, InvalidAPIUsage
 from .models import URLMap
 from .utils import create_short_link
 
@@ -9,7 +9,10 @@ from .utils import create_short_link
 @app.route('/api/id/', methods=['POST'])
 def create_link():
     """View-функция создания новой короткой ссылки."""
-    return jsonify(create_short_link(request.get_json())), 201
+    try:
+        return jsonify(create_short_link(request.get_json())), 201
+    except CreateLinkException as error:
+        raise InvalidAPIUsage(str(error))
 
 
 @app.route('/api/id/<string:short_id>/', methods=['GET'])
